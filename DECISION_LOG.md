@@ -1,4 +1,4 @@
-# Decision Log — Apple Support AI Agent
+﻿# Decision Log â€” Apple Support AI Agent
 
 This log records non-obvious decisions made during the development and evaluation of the Apple Support AI agent.
 
@@ -37,7 +37,7 @@ Some customer messages contain multiple problems, such as an update problem comb
 
 ## 6. Created a 200-example golden evaluation set
 
-I used 200 AppleSupport customer messages as the evaluation set. This is within the required 150–250 example range.
+I used 200 AppleSupport customer messages as the evaluation set. This is within the required 150â€“250 example range.
 
 ## 7. Kept the golden examples out of classifier training
 
@@ -75,22 +75,3 @@ The final evaluation measures the classifier and escalation behavior on the held
 
 The classifier achieved much stronger performance against weak validation labels than against the golden set. Rather than presenting the weak-label result as the headline number, I use the golden-set result and discuss this gap as evidence that the weak labels do not perfectly represent real customer intent.
 
-## 16. Kept the system lightweight
-
-The implementation uses classical NLP and retrieval rather than a large end-to-end generative model. This keeps training and evaluation reproducible within the assessment's runtime constraint.
-
-## 17. Kept original historical response artifacts visible
-
-Historical responses may contain Twitter-specific elements such as usernames, "DM us" language, or shortened links. These artifacts were retained as evidence of historical behavior rather than silently rewriting the source data.
-
-## 18. Added an LLM-as-judge evaluation design
-
-Reply quality is evaluated using a structured rubric covering relevance, grounding, helpfulness, safety, and escalation appropriateness. The judge is intended to complement automated classification and escalation metrics.
-
-## 19. Reported limitations explicitly
-
-The main limitations are weak-label noise, overlapping intents, small golden-set size, class imbalance, and historical responses containing platform-specific artifacts.
-
-## 20. Prioritized failure analysis over headline optimization
-
-The goal was not simply to maximize one metric. The evaluation is designed to expose where the system fails and provide concrete directions for improving it.
