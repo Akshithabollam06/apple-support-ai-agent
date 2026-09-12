@@ -1,66 +1,61 @@
-# Apple Support AI Agent
+# AppleSupport AI Customer Support Agent
 
-A retrieval-grounded customer-support agent built from the Customer Support on Twitter dataset.
+## 1. Problem Framing
 
-## 1. Problem
+This project builds a lightweight AI customer-support agent for AppleSupport using the Customer Support on Twitter dataset.
 
-The system takes an incoming Apple customer message and:
+For this project, "good" means:
 
-1. Classifies the support intent.
-2. Retrieves historically similar AppleSupport cases.
-3. Drafts a response grounded in historical support behavior.
-4. Decides whether the case should be escalated to a human.
+1. Correctly identify the primary support intent.
+2. Draft a response grounded in historically similar AppleSupport interactions.
+3. Avoid automatically handling cases that require human intervention.
+4. Provide an explicit reason when escalation is recommended.
 
-## 2. Dataset
+I chose not to build a fully autonomous support system. The system is intentionally lightweight and focuses on intent classification, historical retrieval, response drafting, and transparent escalation rules.
 
-Dataset:
-Customer Support on Twitter / thoughtvector/customer-support-on-twitter
+## 2. Dataset and Brand Selection
 
-The project focuses only on the AppleSupport brand.
+Dataset: Customer Support on Twitter (`thoughtvector/customer-support-on-twitter`).
 
-The extracted AppleSupport customer-message dataset contains approximately 106K usable customer interactions.
+The dataset contains approximately 3 million customer-support tweets and responses across multiple brands.
 
-## 3. Intent taxonomy
+I selected AppleSupport because it contains a large number of customer interactions and recurring technical-support themes.
 
-The system uses 10 intents:
+The processed AppleSupport data contains historical customer messages and corresponding AppleSupport responses.
 
-- ios_update
-- battery_charging
-- device_performance
-- apple_id_account
-- app_software
-- app_store_purchase
-- apple_music
-- icloud_backup
-- hardware_accessories
-- other_support
+## 3. Intent Taxonomy
 
-## 4. System architecture
+I defined 10 primary intents from recurring AppleSupport support themes:
 
-Customer message
-        |
-        v
-TF-IDF + Logistic Regression
-        |
-        v
-Intent
-        |
-        +------------------+
-        |                  |
-        v                  v
-Historical retrieval   Escalation rules
-        |                  |
-        v                  v
-Grounded reply       Human / Auto
-        |
-        v
-Final response
+- `ios_update`
+- `battery_charging`
+- `device_performance`
+- `apple_id_account`
+- `app_software`
+- `app_store_purchase`
+- `apple_music`
+- `icloud_backup`
+- `hardware_accessories`
+- `other_support`
 
-## 5. Installation
+Each message receives one primary intent.
 
-Python 3.13 was used during development.
+## 4. System Architecture
 
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
+```text
+Incoming customer message
+          |
+          v
+   Intent classifier
+          |
+          +--------------------+
+          |                    |
+          v                    v
+ Historical retrieval    Escalation rules
+          |                    |
+          v                    v
+ Similar AppleSupport    Auto-handle / Human
+       cases                 + reason
+          |
+          v
+    Draft response
