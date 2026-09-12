@@ -1,0 +1,16 @@
+# Raw dataset - do not upload
+data/twcs.csv
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.venv/
+
+# Secrets
+.env
+
+# ZIP backup
+apple_support_ai_agent.zip

@@ -1,0 +1,12 @@
+{
+  "golden_examples": 200,
+  "majority_baseline": {
+    "class": "ios_update",
+    "accuracy": 0.255
+  },
+  "tfidf_logistic_regression": {
+    "accuracy": 0.42,
+    "macro_f1": 0.431769174773344,
+    "weighted_f1": 0.3821575309377275
+  }
+}
